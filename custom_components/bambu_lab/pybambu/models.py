@@ -2154,7 +2154,7 @@ class Info:
         self.mqtt_mode = "local" if self._client._local_mqtt else "bambu_cloud"
         self.nozzle_diameters = {0: None, 1: None, 15: None}
         self.nozzle_types = {0: None, 1: None, 15: None}
-        self.nozzle_filament_types = {0: None, 1: None, 16: None, 17: None, 18: None, 19: None, 20: None, 21: None}
+        self.nozzle_filament_types = {0: None, 1: None, **{nid: None for nid in NOZZLE_RACK_IDS}}
         self.usage_hours = client._usage_hours
         self.extruder_filament_state = False
         self.door_open = False
