@@ -2425,24 +2425,8 @@ class Info:
         return self.nozzle_filament_types[0]
 
     @property
-    def mounted_nozzle_r_type(self) -> str | None:
-        return self.nozzle_types[0]
-
-    @property
-    def mounted_nozzle_r_diameter(self) -> float | None:
-        return self.nozzle_diameters[0]
-
-    @property
     def mounted_nozzle_l_filament_type(self) -> str | None:
         return self.nozzle_filament_types[1]
-
-    @property
-    def mounted_nozzle_l_type(self) -> str | None:
-        return self.nozzle_types[1]
-
-    @property
-    def mounted_nozzle_l_diameter(self) -> float | None:
-        return self.nozzle_diameters[1]
 
     @property
     def right_nozzle_1_filament_type(self) -> str | None:
