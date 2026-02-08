@@ -525,7 +525,6 @@ class TestH2D(unittest.TestCase):
 class TestH2CNozzleFilamentType(unittest.TestCase):
     def setUp(self):
         self.client = MagicMock()
-        self.client.slicer_settings.custom_filaments = {}
         self.info = Info(self.client)
 
         # Create a _device object on the client
@@ -545,10 +544,21 @@ class TestH2CNozzleFilamentType(unittest.TestCase):
         result = self.info.print_update(data)
         self.assertTrue(result)
 
-        # Right nozzle (id=0) has fila_id "GFG00" = "Bambu PETG Basic"
-        self.assertEqual(self.info.right_nozzle_filament_type, "Bambu PETG Basic")
         # Left nozzle (id=1) has empty fila_id
         self.assertIsNone(self.info.left_nozzle_filament_type)
+
+        # Rack position 1 (id=16) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_1_filament_type)
+        # Rack position 2 (id=17) has fila_id "GFG02" = "Bambu PETG HF"
+        self.assertEqual(self.info.right_nozzle_2_filament_type, "Bambu PETG HF")
+        # Rack position 3 (id=18) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_3_filament_type)
+        # Rack position 4 (id=19) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_4_filament_type)
+        # Rack position 5 (id=20) is not in nozzle info (mounted as active right nozzle)
+        self.assertIsNone(self.info.right_nozzle_5_filament_type)
+        # Rack position 6 (id=21) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_6_filament_type)
 
 
 if __name__ == '__main__':

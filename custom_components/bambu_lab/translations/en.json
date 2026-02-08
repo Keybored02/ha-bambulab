@@ -609,8 +609,23 @@
       "left_nozzle_filament_type": {
         "name": "Left nozzle filament type"
       },
-      "right_nozzle_filament_type": {
-        "name": "Right nozzle filament type"
+      "right_nozzle_1_filament_type": {
+        "name": "Right nozzle 1 filament type"
+      },
+      "right_nozzle_2_filament_type": {
+        "name": "Right nozzle 2 filament type"
+      },
+      "right_nozzle_3_filament_type": {
+        "name": "Right nozzle 3 filament type"
+      },
+      "right_nozzle_4_filament_type": {
+        "name": "Right nozzle 4 filament type"
+      },
+      "right_nozzle_5_filament_type": {
+        "name": "Right nozzle 5 filament type"
+      },
+      "right_nozzle_6_filament_type": {
+        "name": "Right nozzle 6 filament type"
       },
       "ip_address": {
         "name": "IP address"
