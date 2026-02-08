@@ -273,6 +273,8 @@ class Device:
             return model in h2_printers
         elif feature == Features.SECONDARY_AUX_FAN:
             return model in p2_printers
+        elif feature == Features.NOZZLE_RACK:
+            return model == Printers.H2C
         return False
     
     def supports_sw_version(self, version: str) -> bool:
@@ -2152,8 +2154,8 @@ class Info:
         self.online = False
         self.new_version_state = 0
         self.mqtt_mode = "local" if self._client._local_mqtt else "bambu_cloud"
-        self.nozzle_diameters = {0: None, 1: None, 15: None}
-        self.nozzle_types = {0: None, 1: None, 15: None}
+        self.nozzle_diameters = {0: None, 1: None, 15: None, **{nid: None for nid in NOZZLE_RACK_IDS}}
+        self.nozzle_types = {0: None, 1: None, 15: None, **{nid: None for nid in NOZZLE_RACK_IDS}}
         self.nozzle_filament_types = {0: None, 1: None, **{nid: None for nid in NOZZLE_RACK_IDS}}
         self.usage_hours = client._usage_hours
         self.extruder_filament_state = False
@@ -2331,7 +2333,7 @@ class Info:
         if nozzle_data is not None and isinstance(nozzle_data, list):
             for entry in nozzle_data:
                 nozzle_id = entry.get("id")
-                if nozzle_id in (0, 1):
+                if nozzle_id in self.nozzle_diameters:
                     self.nozzle_diameters[nozzle_id] = float(entry.get("diameter", 0))
                     self.nozzle_types[nozzle_id] = Info._nozzle_type_name(entry.get("type", ""))
                 if nozzle_id in self.nozzle_filament_types:
@@ -2416,24 +2418,72 @@ class Info:
         return self.nozzle_filament_types[16]
 
     @property
+    def right_nozzle_1_type(self) -> str | None:
+        return self.nozzle_types[16]
+
+    @property
+    def right_nozzle_1_diameter(self) -> float | None:
+        return self.nozzle_diameters[16]
+
+    @property
     def right_nozzle_2_filament_type(self) -> str | None:
         return self.nozzle_filament_types[17]
+
+    @property
+    def right_nozzle_2_type(self) -> str | None:
+        return self.nozzle_types[17]
+
+    @property
+    def right_nozzle_2_diameter(self) -> float | None:
+        return self.nozzle_diameters[17]
 
     @property
     def right_nozzle_3_filament_type(self) -> str | None:
         return self.nozzle_filament_types[18]
 
     @property
+    def right_nozzle_3_type(self) -> str | None:
+        return self.nozzle_types[18]
+
+    @property
+    def right_nozzle_3_diameter(self) -> float | None:
+        return self.nozzle_diameters[18]
+
+    @property
     def right_nozzle_4_filament_type(self) -> str | None:
         return self.nozzle_filament_types[19]
+
+    @property
+    def right_nozzle_4_type(self) -> str | None:
+        return self.nozzle_types[19]
+
+    @property
+    def right_nozzle_4_diameter(self) -> float | None:
+        return self.nozzle_diameters[19]
 
     @property
     def right_nozzle_5_filament_type(self) -> str | None:
         return self.nozzle_filament_types[20]
 
     @property
+    def right_nozzle_5_type(self) -> str | None:
+        return self.nozzle_types[20]
+
+    @property
+    def right_nozzle_5_diameter(self) -> float | None:
+        return self.nozzle_diameters[20]
+
+    @property
     def right_nozzle_6_filament_type(self) -> str | None:
         return self.nozzle_filament_types[21]
+
+    @property
+    def right_nozzle_6_type(self) -> str | None:
+        return self.nozzle_types[21]
+
+    @property
+    def right_nozzle_6_diameter(self) -> float | None:
+        return self.nozzle_diameters[21]
 
     @property
     def is_local_mqtt(self):

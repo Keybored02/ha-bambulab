@@ -560,6 +560,35 @@ class TestH2CNozzleFilamentType(unittest.TestCase):
         # Rack position 6 (id=21) has empty fila_id
         self.assertIsNone(self.info.right_nozzle_6_filament_type)
 
+    def test_h2c_nozzle_rack_type_and_diameter(self):
+        data = self.h2c_data['pushall']['print']
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+
+        # Rack position 1 (id=16): type=HS00, diameter=0.2
+        self.assertEqual(self.info.right_nozzle_1_type, "stainless_steel")
+        self.assertEqual(self.info.right_nozzle_1_diameter, 0.2)
+
+        # Rack position 2 (id=17): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_2_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_2_diameter, 0.4)
+
+        # Rack position 3 (id=18): type=HS01, diameter=0.6
+        self.assertEqual(self.info.right_nozzle_3_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_3_diameter, 0.6)
+
+        # Rack position 4 (id=19): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_4_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_4_diameter, 0.4)
+
+        # Rack position 5 (id=20) is not in nozzle info (mounted)
+        self.assertIsNone(self.info.right_nozzle_5_type)
+        self.assertIsNone(self.info.right_nozzle_5_diameter)
+
+        # Rack position 6 (id=21): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_6_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_6_diameter, 0.4)
+
 
 if __name__ == '__main__':
     unittest.main()
