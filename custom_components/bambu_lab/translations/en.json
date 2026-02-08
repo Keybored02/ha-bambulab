@@ -606,6 +606,114 @@
           "high_flow_tungsten_carbide": "High flow tungsten carbide"
         }
       },
+      "mounted_nozzle_r_filament_type": {
+        "name": "Nozzle R filament type"
+      },
+      "mounted_nozzle_l_filament_type": {
+        "name": "Nozzle L filament type"
+      },
+      "right_nozzle_1_filament_type": {
+        "name": "Right nozzle 1 filament type"
+      },
+      "right_nozzle_1_type": {
+        "name": "Right nozzle 1 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_1_diameter": {
+        "name": "Right nozzle 1 size"
+      },
+      "right_nozzle_2_filament_type": {
+        "name": "Right nozzle 2 filament type"
+      },
+      "right_nozzle_2_type": {
+        "name": "Right nozzle 2 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_2_diameter": {
+        "name": "Right nozzle 2 size"
+      },
+      "right_nozzle_3_filament_type": {
+        "name": "Right nozzle 3 filament type"
+      },
+      "right_nozzle_3_type": {
+        "name": "Right nozzle 3 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_3_diameter": {
+        "name": "Right nozzle 3 size"
+      },
+      "right_nozzle_4_filament_type": {
+        "name": "Right nozzle 4 filament type"
+      },
+      "right_nozzle_4_type": {
+        "name": "Right nozzle 4 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_4_diameter": {
+        "name": "Right nozzle 4 size"
+      },
+      "right_nozzle_5_filament_type": {
+        "name": "Right nozzle 5 filament type"
+      },
+      "right_nozzle_5_type": {
+        "name": "Right nozzle 5 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_5_diameter": {
+        "name": "Right nozzle 5 size"
+      },
+      "right_nozzle_6_filament_type": {
+        "name": "Right nozzle 6 filament type"
+      },
+      "right_nozzle_6_type": {
+        "name": "Right nozzle 6 type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide"
+        }
+      },
+      "right_nozzle_6_diameter": {
+        "name": "Right nozzle 6 size"
+      },
       "ip_address": {
         "name": "IP address"
       },

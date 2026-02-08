@@ -522,5 +522,113 @@ class TestH2D(unittest.TestCase):
 
 
 
+class TestH2CNozzleFilamentType(unittest.TestCase):
+    def setUp(self):
+        self.client = MagicMock()
+        self.info = Info(self.client)
+
+        # Create a _device object on the client
+        self.client._device = MagicMock()
+        self.client._device.extruder = Extruder(self.client._device)
+
+        # Load H2C test data
+        with open(os.path.join(os.path.dirname(__file__), 'MOCK-H2C.json'), 'r') as f:
+            self.h2c_data = json.load(f)
+
+        # Mock feature support
+        self.client._device.supports_feature.return_value = True
+
+    def test_h2c_nozzle_filament_type(self):
+        data = self.h2c_data['pushall']['print']
+        result = self.client._device.extruder.print_update(data)
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+
+        # Mounted Nozzle L (id=1) has empty fila_id
+        self.assertIsNone(self.info.mounted_nozzle_l_filament_type)
+
+        # Mounted Nozzle R (id=0) has fila_id "GFG00" = "Bambu PETG Basic"
+        self.assertEqual(self.info.mounted_nozzle_r_filament_type, "Bambu PETG Basic")
+
+        # Rack position 1 (id=16) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_1_filament_type)
+        # Rack position 2 (id=17) has fila_id "GFG02" = "Bambu PETG HF"
+        self.assertEqual(self.info.right_nozzle_2_filament_type, "Bambu PETG HF")
+        # Rack position 3 (id=18) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_3_filament_type)
+        # Rack position 4 (id=19) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_4_filament_type)
+        # Rack position 5 (id=20) is not in nozzle info (mounted as active right nozzle)
+        self.assertIsNone(self.info.right_nozzle_5_filament_type)
+        # Rack position 6 (id=21) has empty fila_id
+        self.assertIsNone(self.info.right_nozzle_6_filament_type)
+
+    def test_h2c_nozzle_rack_type_and_diameter(self):
+        data = self.h2c_data['pushall']['print']
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+
+        # Rack position 1 (id=16): type=HS00, diameter=0.2
+        self.assertEqual(self.info.right_nozzle_1_type, "stainless_steel")
+        self.assertEqual(self.info.right_nozzle_1_diameter, 0.2)
+
+        # Rack position 2 (id=17): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_2_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_2_diameter, 0.4)
+
+        # Rack position 3 (id=18): type=HS01, diameter=0.6
+        self.assertEqual(self.info.right_nozzle_3_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_3_diameter, 0.6)
+
+        # Rack position 4 (id=19): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_4_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_4_diameter, 0.4)
+
+        # Rack position 5 (id=20) is not in nozzle info (mounted)
+        self.assertIsNone(self.info.right_nozzle_5_type)
+        self.assertIsNone(self.info.right_nozzle_5_diameter)
+
+        # Rack position 6 (id=21): type=HS01, diameter=0.4
+        self.assertEqual(self.info.right_nozzle_6_type, "hardened_steel")
+        self.assertEqual(self.info.right_nozzle_6_diameter, 0.4)
+
+    def test_h2c_unknown_filament_returns_raw_id(self):
+        """Unknown filament IDs should return the raw fila_id string."""
+        data = self.h2c_data['pushall']['print']
+        # Inject an unknown filament ID
+        nozzle_info = data['device']['nozzle']['info']
+        for entry in nozzle_info:
+            if entry['id'] == 0:
+                entry['fila_id'] = 'UNKNOWN_XYZ'
+                break
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+        self.assertEqual(self.info.mounted_nozzle_r_filament_type, "UNKNOWN_XYZ")
+
+    def test_h2c_invalid_diameter_returns_none(self):
+        """Diameters not in (0.2, 0.4, 0.6, 0.8) should return None."""
+        data = self.h2c_data['pushall']['print']
+        # Inject an invalid diameter into a rack nozzle
+        nozzle_info = data['device']['nozzle']['info']
+        for entry in nozzle_info:
+            if entry['id'] == 16:
+                entry['diameter'] = 0.3
+                break
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+        self.assertIsNone(self.info.right_nozzle_1_diameter)
+
+    def test_h2c_no_nozzles_installed(self):
+        """When no nozzle info is provided, all properties return None."""
+        data = self.h2c_data['pushall']['print']
+        # Remove nozzle info entirely
+        data['device']['nozzle']['info'] = []
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+        self.assertIsNone(self.info.mounted_nozzle_r_filament_type)
+        self.assertIsNone(self.info.mounted_nozzle_l_filament_type)
+        self.assertIsNone(self.info.right_nozzle_1_filament_type)
+
+
 if __name__ == '__main__':
     unittest.main()
