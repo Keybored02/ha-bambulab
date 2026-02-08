@@ -632,6 +632,7 @@ class TestH2CNozzleFilamentType(unittest.TestCase):
         # Remove nozzle info entirely
         data['device']['nozzle']['info'] = []
         result = self.info.print_update(data)
+        self.assertTrue(result)
         self.assertIsNone(self.info.mounted_nozzle_r_filament_type)
         self.assertIsNone(self.info.mounted_nozzle_r_type)
         self.assertIsNone(self.info.mounted_nozzle_r_diameter)

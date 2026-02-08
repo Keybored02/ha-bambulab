@@ -2337,7 +2337,7 @@ class Info:
             for entry in nozzle_data:
                 nozzle_id = entry.get("id")
                 if nozzle_id in self.nozzle_diameters:
-                    diameter = float(entry.get("diameter", 0))
+                    diameter = round(float(entry.get("diameter", 0)), 1)
                     self.nozzle_diameters[nozzle_id] = diameter if diameter in ALLOWED_NOZZLE_DIAMETERS else None
                     self.nozzle_types[nozzle_id] = Info._nozzle_type_name(entry.get("type", ""))
                 if nozzle_id in self.nozzle_filament_types:
