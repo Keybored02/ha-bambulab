@@ -2117,6 +2117,9 @@ NOZZLE_FILAMENT_NAMES = {
 # Nozzle rack position IDs for H2C (rack positions 1-6)
 NOZZLE_RACK_IDS = (16, 17, 18, 19, 20, 21)
 
+# Allowed nozzle diameters
+ALLOWED_NOZZLE_DIAMETERS = (0.2, 0.4, 0.6, 0.8)
+
 @dataclass
 class Info:
     """Return all device related content"""
@@ -2334,11 +2337,15 @@ class Info:
             for entry in nozzle_data:
                 nozzle_id = entry.get("id")
                 if nozzle_id in self.nozzle_diameters:
-                    self.nozzle_diameters[nozzle_id] = float(entry.get("diameter", 0))
+                    diameter = float(entry.get("diameter", 0))
+                    self.nozzle_diameters[nozzle_id] = diameter if diameter in ALLOWED_NOZZLE_DIAMETERS else None
                     self.nozzle_types[nozzle_id] = Info._nozzle_type_name(entry.get("type", ""))
                 if nozzle_id in self.nozzle_filament_types:
                     fila_id = entry.get("fila_id", "")
-                    self.nozzle_filament_types[nozzle_id] = NOZZLE_FILAMENT_NAMES.get(fila_id) if fila_id else None
+                    if fila_id:
+                        self.nozzle_filament_types[nozzle_id] = NOZZLE_FILAMENT_NAMES.get(fila_id, fila_id)
+                    else:
+                        self.nozzle_filament_types[nozzle_id] = None
         else:
             if "nozzle_diameter" in data:
                 self.nozzle_diameters[0] = float(data["nozzle_diameter"])
@@ -2412,6 +2419,30 @@ class Info:
     @property
     def left_nozzle_filament_type(self) -> str | None:
         return self.nozzle_filament_types[1]
+
+    @property
+    def mounted_nozzle_r_filament_type(self) -> str | None:
+        return self.nozzle_filament_types[0]
+
+    @property
+    def mounted_nozzle_r_type(self) -> str | None:
+        return self.nozzle_types[0]
+
+    @property
+    def mounted_nozzle_r_diameter(self) -> float | None:
+        return self.nozzle_diameters[0]
+
+    @property
+    def mounted_nozzle_l_filament_type(self) -> str | None:
+        return self.nozzle_filament_types[1]
+
+    @property
+    def mounted_nozzle_l_type(self) -> str | None:
+        return self.nozzle_types[1]
+
+    @property
+    def mounted_nozzle_l_diameter(self) -> float | None:
+        return self.nozzle_diameters[1]
 
     @property
     def right_nozzle_1_filament_type(self) -> str | None:

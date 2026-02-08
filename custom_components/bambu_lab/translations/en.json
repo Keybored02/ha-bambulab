@@ -606,8 +606,41 @@
           "high_flow_tungsten_carbide": "High flow tungsten carbide"
         }
       },
-      "left_nozzle_filament_type": {
-        "name": "Left nozzle filament type"
+      "mounted_nozzle_r_filament_type": {
+        "name": "Nozzle R filament type"
+      },
+      "mounted_nozzle_r_type": {
+        "name": "Nozzle R type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide",
+          "unknown": "Unknown"
+        }
+      },
+      "mounted_nozzle_r_diameter": {
+        "name": "Nozzle R size"
+      },
+      "mounted_nozzle_l_filament_type": {
+        "name": "Nozzle L filament type"
+      },
+      "mounted_nozzle_l_type": {
+        "name": "Nozzle L type",
+        "state": {
+          "hardened_steel": "Hardened steel",
+          "stainless_steel": "Stainless steel",
+          "tungsten_carbide": "Tungsten carbide",
+          "high_flow_hardened_steel": "High flow hardened steel",
+          "high_flow_stainless_steel": "High flow stainless steel",
+          "high_flow_tungsten_carbide": "High flow tungsten carbide",
+          "unknown": "Unknown"
+        }
+      },
+      "mounted_nozzle_l_diameter": {
+        "name": "Nozzle L size"
       },
       "right_nozzle_1_filament_type": {
         "name": "Right nozzle 1 filament type"
