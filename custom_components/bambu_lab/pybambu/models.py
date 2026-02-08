@@ -2041,6 +2041,7 @@ class Info:
     mqtt_mode: str
     nozzle_diameters: dict[int, float|None]
     nozzle_types: dict[int, str|None]
+    nozzle_filament_types: dict[int, str|None]
     usage_hours: float
     extruder_filament_state: bool
     door_open: bool
@@ -2063,6 +2064,7 @@ class Info:
         self.mqtt_mode = "local" if self._client._local_mqtt else "bambu_cloud"
         self.nozzle_diameters = {0: None, 1: None, 15: None}
         self.nozzle_types = {0: None, 1: None, 15: None}
+        self.nozzle_filament_types = {0: None, 1: None, 15: None}
         self.usage_hours = client._usage_hours
         self.extruder_filament_state = False
         self.door_open = False
@@ -2241,6 +2243,8 @@ class Info:
                 if entry.get("id") in (0, 1):
                     self.nozzle_diameters[entry["id"]] = float(entry.get("diameter", 0))
                     self.nozzle_types[entry["id"]] = Info._nozzle_type_name(entry.get("type", ""))
+                    fila_id = entry.get("fila_id", "")
+                    self.nozzle_filament_types[entry["id"]] = get_filament_name(fila_id, self._client.slicer_settings.custom_filaments) if fila_id else None
         else:
             if "nozzle_diameter" in data:
                 self.nozzle_diameters[0] = float(data["nozzle_diameter"])
@@ -2310,6 +2314,14 @@ class Info:
     @property
     def right_nozzle_type(self) -> str | None:
         return self.nozzle_types[0]
+
+    @property
+    def left_nozzle_filament_type(self) -> str | None:
+        return self.nozzle_filament_types[1]
+
+    @property
+    def right_nozzle_filament_type(self) -> str | None:
+        return self.nozzle_filament_types[0]
 
     @property
     def is_local_mqtt(self):

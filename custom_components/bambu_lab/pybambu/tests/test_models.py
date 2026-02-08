@@ -522,5 +522,34 @@ class TestH2D(unittest.TestCase):
 
 
 
+class TestH2CNozzleFilamentType(unittest.TestCase):
+    def setUp(self):
+        self.client = MagicMock()
+        self.client.slicer_settings.custom_filaments = {}
+        self.info = Info(self.client)
+
+        # Create a _device object on the client
+        self.client._device = MagicMock()
+        self.client._device.extruder = Extruder(self.client._device)
+
+        # Load H2C test data
+        with open(os.path.join(os.path.dirname(__file__), 'MOCK-H2C.json'), 'r') as f:
+            self.h2c_data = json.load(f)
+
+        # Mock feature support
+        self.client._device.supports_feature.return_value = True
+
+    def test_h2c_nozzle_filament_type(self):
+        data = self.h2c_data['pushall']['print']
+        result = self.client._device.extruder.print_update(data)
+        result = self.info.print_update(data)
+        self.assertTrue(result)
+
+        # Right nozzle (id=0) has fila_id "GFG00" = "Bambu PETG Basic"
+        self.assertEqual(self.info.right_nozzle_filament_type, "Bambu PETG Basic")
+        # Left nozzle (id=1) has empty fila_id
+        self.assertIsNone(self.info.left_nozzle_filament_type)
+
+
 if __name__ == '__main__':
     unittest.main()

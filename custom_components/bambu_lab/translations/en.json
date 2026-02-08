@@ -606,6 +606,12 @@
           "high_flow_tungsten_carbide": "High flow tungsten carbide"
         }
       },
+      "left_nozzle_filament_type": {
+        "name": "Left nozzle filament type"
+      },
+      "right_nozzle_filament_type": {
+        "name": "Right nozzle filament type"
+      },
       "ip_address": {
         "name": "IP address"
       },
